@@ -1,0 +1,248 @@
+mysql> cls
+    -> cls;
+    -> ^C
+mysql> cls;
+    -> ^C
+mysql> system cls;
+mysql> CREATE DATABASE IIT_STUDENT_DB;
+    -> ^C
+mysql> USE IIT_STUDENT_DB;
+ERROR 1049 (42000): Unknown database 'iit_student_db;'
+mysql> exit
+mysql> CREATE DATABASE IIT_STUDENT_DB;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE IIT_STUDENT_DB;
+Database changed
+mysql> CREATE TABLE students(
+    -> registration VARCHAR(20) NOT NULL,
+    -> batch INT NOT NULL,
+    -> session VARCHAR(15),
+    -> email VARCHAR(50) UNIQUE,
+    -> gender VARCHAR(10),
+    -> skill VARCHAR(255),
+    -> extra_curricular VARCHAR(255),
+    -> club_member VARCHAR(100),
+    -> achievement VARCHAR(255),
+    -> job_position VARCHAR(100),
+    -> PRIMARY KEY (registration)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO students
+    -> (registration, batch, session, email, gender, skill, extra_curricular, club_member, achievement, job_position)
+    -> VALUES
+    -> ('IIT20201201', 12, '2020-2021', 'shaon@iitju.edu', 'Male', 'ML, Python, SQL', 'Cultural Event', 'Tech Club', 'Hackathon Winner', 'Team Lead'),
+    -> ('IIT20201202', 12, '2020-2021', 'rafi@iitju.edu', 'Male', 'Web Development, JS', 'Sports Team', 'Sports Club', 'Football Champion', 'Club Secretary'),
+    -> ('IIT20201301', 13, '2021-2022', 'ahad@iitju.edu', 'Male', 'AI, C++', 'Debate Society', 'Debate Club', 'Research Paper Published', 'Research Assistant'),
+    -> ('IIT20201302', 13, '2021-2022', 'tania@iitju.edu', 'Female', 'Front-end, UI/UX', 'Women in Tech', 'Tech Club', 'Coding Competition Winner', 'Project Manager'),
+    -> ('IIT20201401', 14, '2022-2023', 'nasrin@iitju.edu', 'Female', 'Data Science, Excel', 'Research Group', 'Research Club', 'Paper Presentation Winner', 'Lab Assistant'),
+    -> ('IIT20201501', 15, '2023-2024', 'mehedi@iitju.edu', 'Male', 'Deep Learning, Java', 'Tech Club', 'AI Club', 'Innovation Award', 'Team Lead');
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM students;
++--------------+-------+-----------+------------------+--------+---------------------+------------------+---------------+---------------------------+--------------------+
+| registration | batch | session   | email            | gender | skill               | extra_curricular | club_member   | achievement               | job_position       |
++--------------+-------+-----------+------------------+--------+---------------------+------------------+---------------+---------------------------+--------------------+
+| IIT20201201  |    12 | 2020-2021 | shaon@iitju.edu  | Male   | ML, Python, SQL     | Cultural Event   | Tech Club     | Hackathon Winner          | Team Lead          |
+| IIT20201202  |    12 | 2020-2021 | rafi@iitju.edu   | Male   | Web Development, JS | Sports Team      | Sports Club   | Football Champion         | Club Secretary     |
+| IIT20201301  |    13 | 2021-2022 | ahad@iitju.edu   | Male   | AI, C++             | Debate Society   | Debate Club   | Research Paper Published  | Research Assistant |
+| IIT20201302  |    13 | 2021-2022 | tania@iitju.edu  | Female | Front-end, UI/UX    | Women in Tech    | Tech Club     | Coding Competition Winner | Project Manager    |
+| IIT20201401  |    14 | 2022-2023 | nasrin@iitju.edu | Female | Data Science, Excel | Research Group   | Research Club | Paper Presentation Winner | Lab Assistant      |
+| IIT20201501  |    15 | 2023-2024 | mehedi@iitju.edu | Male   | Deep Learning, Java | Tech Club        | AI Club       | Innovation Award          | Team Lead          |
++--------------+-------+-----------+------------------+--------+---------------------+------------------+---------------+---------------------------+--------------------+
+6 rows in set (0.00 sec)
+
+mysql> CREATE TABLE batch12(
+    -> id INT AUTO_INCREMENT PRIMARY KEY,
+    -> registration VARCHAR(20),
+    -> phone VARCHAR(15) UNIQUE,
+    -> cgpa_1st_year FLOAT(3,2),
+    ->     cgpa_2nd_year FLOAT(3,2),
+    ->     cgpa_3rd_year FLOAT(3,2),
+    ->     cgpa_4th_year FLOAT(3,2),
+    ->     honours_cgpa FLOAT(3,2),
+    ->     research_paper VARCHAR(255),
+    ->     main_project VARCHAR(255),
+    -> FOREIGN KEY(registration) REFERENCES students(registration)
+    -> ON UPDATE CASCADE
+    -> ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected, 5 warnings (0.04 sec)
+
+mysql> CREATE TABLE batch13 (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     registration VARCHAR(20),
+    ->     phone VARCHAR(15) UNIQUE,
+    ->     cgpa_1st_year FLOAT(3,2),
+    ->     cgpa_2nd_year FLOAT(3,2),
+    ->     cgpa_3rd_year FLOAT(3,2),
+    ->     cgpa_4th_year FLOAT(3,2),
+    ->     honours_cgpa FLOAT(3,2),
+    ->     research_paper VARCHAR(255),
+    ->     main_project VARCHAR(255),
+    ->     FOREIGN KEY (registration) REFERENCES students_master(registration)
+    ->         ON UPDATE CASCADE
+    ->         ON DELETE CASCADE
+    -> );
+ERROR 1824 (HY000): Failed to open the referenced table 'students_master'
+mysql> CREATE TABLE batch13 (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     registration VARCHAR(20),
+    ->     phone VARCHAR(15) UNIQUE,
+    ->     cgpa_1st_year FLOAT(3,2),
+    ->     cgpa_2nd_year FLOAT(3,2),
+    ->     cgpa_3rd_year FLOAT(3,2),
+    ->     cgpa_4th_year FLOAT(3,2),
+    ->     honours_cgpa FLOAT(3,2),
+    ->     research_paper VARCHAR(255),
+    ->     main_project VARCHAR(255),
+    ->     FOREIGN KEY (registration) REFERENCES students(registration)
+    ->         ON UPDATE CASCADE
+    ->         ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected, 5 warnings (0.04 sec)
+
+mysql> CREATE TABLE batch14 (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     registration VARCHAR(20),
+    ->     phone VARCHAR(15) UNIQUE,
+    ->     cgpa_1st_year FLOAT(3,2),
+    ->     cgpa_2nd_year FLOAT(3,2),
+    ->     cgpa_3rd_year FLOAT(3,2),
+    ->     cgpa_4th_year FLOAT(3,2),
+    ->     honours_cgpa FLOAT(3,2),
+    ->     research_paper VARCHAR(255),
+    ->     main_project VARCHAR(255),
+    ->     FOREIGN KEY (registration) REFERENCES student(registration)
+    -> ON UPDATE CASCADE
+    ->         ON DELETE CASCADE
+    -> );
+ERROR 1824 (HY000): Failed to open the referenced table 'student'
+mysql> CREATE TABLE batch14 (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     registration VARCHAR(20),
+    ->     phone VARCHAR(15) UNIQUE,
+    ->     cgpa_1st_year FLOAT(3,2),
+    ->     cgpa_2nd_year FLOAT(3,2),
+    ->     cgpa_3rd_year FLOAT(3,2),
+    ->     cgpa_4th_year FLOAT(3,2),
+    ->     honours_cgpa FLOAT(3,2),
+    ->     research_paper VARCHAR(255),
+    ->     main_project VARCHAR(255),
+    ->     FOREIGN KEY (registration) REFERENCES students(registration)
+    ->       ON UPDATE CASCADE
+    ->         ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected, 5 warnings (0.04 sec)
+
+mysql> CREATE TABLE batch15 (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     registration VARCHAR(20),
+    ->     phone VARCHAR(15) UNIQUE,
+    ->     cgpa_1st_year FLOAT(3,2),
+    ->     cgpa_2nd_year FLOAT(3,2),
+    ->     cgpa_3rd_year FLOAT(3,2),
+    ->     cgpa_4th_year FLOAT(3,2),
+    ->     honours_cgpa FLOAT(3,2),
+    ->     research_paper VARCHAR(255),
+    ->     main_project VARCHAR(255),
+    ->     FOREIGN KEY (registration) REFERENCES students(registration)
+    ->  ON UPDATE CASCADE
+    ->         ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected, 5 warnings (0.03 sec)
+
+mysql> INSERT INTO batch12 
+    -> (registration, phone, cgpa_1st_year, cgpa_2nd_year, cgpa_3rd_year, cgpa_4th_year, honours_cgpa, research_paper, main_project)
+    -> VALUES
+    -> ('IIT20201201', '01710000001', 3.85, 3.90, 3.95, 4.00, 3.92, 'Performance Prediction Paper', 'AI Attendance System'),
+    -> ('IIT20201202', '01710000005', 3.60, 3.70, 3.75, 3.80, 3.70, 'Web Development Paper', 'Online Course Platform');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO batch13 
+    -> (registration, phone, cgpa_1st_year, cgpa_2nd_year, cgpa_3rd_year, cgpa_4th_year, honours_cgpa, research_paper, main_project)
+    -> VALUES
+    -> ('IIT20201301', '01710000002', 3.80, 3.85, 3.90, 3.95, 3.88, 'AI Chatbot Paper', 'Campus AI Chatbot'),
+    -> ('IIT20201302', '01710000006', 3.75, 3.80, 3.85, 3.90, 3.85, 'Portfolio Website Paper', 'Portfolio Automation');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO batch14 
+    -> (registration, phone, cgpa_1st_year, cgpa_2nd_year, cgpa_3rd_year, cgpa_4th_year, honours_cgpa, research_paper, main_project)
+    -> VALUES
+    -> ('IIT20201401', '01710000003', 3.88, 3.90, 3.92, 3.95, 3.92, 'Data Analytics Paper', 'Academic Dashboard');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO batch15 
+    -> (registration, phone, cgpa_1st_year, cgpa_2nd_year, cgpa_3rd_year, cgpa_4th_year, honours_cgpa, research_paper, main_project)
+    -> VALUES
+    -> ('IIT20201501', '01710000004', 3.90, 3.92, 3.94, 3.95, 3.93, 'Face Recognition Paper', 'Attendance System');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM students;
++--------------+-------+-----------+------------------+--------+---------------------+------------------+---------------+---------------------------+--------------------+
+| registration | batch | session   | email            | gender | skill               | extra_curricular | club_member   | achievement               | job_position       |
++--------------+-------+-----------+------------------+--------+---------------------+------------------+---------------+---------------------------+--------------------+
+| IIT20201201  |    12 | 2020-2021 | shaon@iitju.edu  | Male   | ML, Python, SQL     | Cultural Event   | Tech Club     | Hackathon Winner          | Team Lead          |
+| IIT20201202  |    12 | 2020-2021 | rafi@iitju.edu   | Male   | Web Development, JS | Sports Team      | Sports Club   | Football Champion         | Club Secretary     |
+| IIT20201301  |    13 | 2021-2022 | ahad@iitju.edu   | Male   | AI, C++             | Debate Society   | Debate Club   | Research Paper Published  | Research Assistant |
+| IIT20201302  |    13 | 2021-2022 | tania@iitju.edu  | Female | Front-end, UI/UX    | Women in Tech    | Tech Club     | Coding Competition Winner | Project Manager    |
+| IIT20201401  |    14 | 2022-2023 | nasrin@iitju.edu | Female | Data Science, Excel | Research Group   | Research Club | Paper Presentation Winner | Lab Assistant      |
+| IIT20201501  |    15 | 2023-2024 | mehedi@iitju.edu | Male   | Deep Learning, Java | Tech Club        | AI Club       | Innovation Award          | Team Lead          |
++--------------+-------+-----------+------------------+--------+---------------------+------------------+---------------+---------------------------+--------------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM batch14;
++----+--------------+-------------+---------------+---------------+---------------+---------------+--------------+----------------------+--------------------+
+| id | registration | phone       | cgpa_1st_year | cgpa_2nd_year | cgpa_3rd_year | cgpa_4th_year | honours_cgpa | research_paper       | main_project       |
++----+--------------+-------------+---------------+---------------+---------------+---------------+--------------+----------------------+--------------------+
+|  1 | IIT20201401  | 01710000003 |          3.88 |          3.90 |          3.92 |          3.95 |         3.92 | Data Analytics Paper | Academic Dashboard |
++----+--------------+-------------+---------------+---------------+---------------+---------------+--------------+----------------------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT s.name, s.batch, s.skill, s.extra_curricular, s.club_member, s.achievement, s.job_position,
+    ->        b.cgpa_1st_year, b.cgpa_2nd_year, b.cgpa_3rd_year, b.cgpa_4th_year, b.honours_cgpa,
+    ->        b.research_paper, b.main_project
+    -> FROM students s
+    -> JOIN batch13 b ON s.registration = b.registration;
+ERROR 1054 (42S22): Unknown column 's.name' in 'field list'
+mysql> SELECT s.name, s.batch, s.skill, s.extra_curricular, s.club_member, s.achievement, s.job_position,
+    ->        b.cgpa_1st_year, b.cgpa_2nd_year, b.cgpa_3rd_year, b.cgpa_4th_year, b.honours_cgpa,
+    ->        b.research_paper, b.main_project
+    -> FROM students s
+    -> JOIN batch13 b ON s.registration = b.registration;
+ERROR 1054 (42S22): Unknown column 's.name' in 'field list'
+mysql> DESCRIBE students;
++------------------+--------------+------+-----+---------+-------+
+| Field            | Type         | Null | Key | Default | Extra |
++------------------+--------------+------+-----+---------+-------+
+| registration     | varchar(20)  | NO   | PRI | NULL    |       |
+| batch            | int          | NO   |     | NULL    |       |
+| session          | varchar(15)  | YES  |     | NULL    |       |
+| email            | varchar(50)  | YES  | UNI | NULL    |       |
+| gender           | varchar(10)  | YES  |     | NULL    |       |
+| skill            | varchar(255) | YES  |     | NULL    |       |
+| extra_curricular | varchar(255) | YES  |     | NULL    |       |
+| club_member      | varchar(100) | YES  |     | NULL    |       |
+| achievement      | varchar(255) | YES  |     | NULL    |       |
+| job_position     | varchar(100) | YES  |     | NULL    |       |
++------------------+--------------+------+-----+---------+-------+
+10 rows in set (0.01 sec)
+
+mysql> SELECT s.registration, s.batch, s.skill, s.extra_curricular, s.club_member, s.achievement, s.job_position,
+    ->        b.cgpa_1st_year, b.cgpa_2nd_year, b.cgpa_3rd_year, b.cgpa_4th_year, b.honours_cgpa,
+    ->        b.research_paper, b.main_project
+    -> FROM students s
+    -> JOIN batch13 b ON s.registration = b.registration;
++--------------+-------+------------------+------------------+-------------+---------------------------+--------------------+---------------+---------------+---------------+---------------+--------------+-------------------------+----------------------+
+| registration | batch | skill            | extra_curricular | club_member | achievement               | job_position       | cgpa_1st_year | cgpa_2nd_year | cgpa_3rd_year | cgpa_4th_year | honours_cgpa | research_paper          | main_project         |
++--------------+-------+------------------+------------------+-------------+---------------------------+--------------------+---------------+---------------+---------------+---------------+--------------+-------------------------+----------------------+
+| IIT20201301  |    13 | AI, C++          | Debate Society   | Debate Club | Research Paper Published  | Research Assistant |          3.80 |          3.85 |          3.90 |          3.95 |         3.88 | AI Chatbot Paper        | Campus AI Chatbot    |
+| IIT20201302  |    13 | Front-end, UI/UX | Women in Tech    | Tech Club   | Coding Competition Winner | Project Manager    |          3.75 |          3.80 |          3.85 |          3.90 |         3.85 | Portfolio Website Paper | Portfolio Automation |
++--------------+-------+------------------+------------------+-------------+---------------------------+--------------------+---------------+---------------+---------------+---------------+--------------+-------------------------+----------------------+
+2 rows in set (0.00 sec)
+
+mysql> notee

@@ -1,0 +1,351 @@
+mysql> notee;
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE DATABASE IIT-14;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-14' at line 1
+mysql> CREATE DATABASE IIT14;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> USE IIT14;
+Database changed
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| iit14              |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE student(
+    -> id INT PRIMARY KEY AUTO_INCREMENT,
+    -> name VARCHAR(100) NOT NULL,
+    -> email VARCHAR(100) UNIQUE,
+    -> class INT
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| iit14              |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO student (id,name,email,class) VALUES
+    -> (1,'Shaon','shaon@gmail.com',2),
+    -> (2,'Ahad','ahad@gmail.com',3);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SHOW TABLE student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'student' at line 1
+mysql> SELECT * FROM student;
++----+-------+-----------------+-------+
+| id | name  | email           | class |
++----+-------+-----------------+-------+
+|  1 | Shaon | shaon@gmail.com |     2 |
+|  2 | Ahad  | ahad@gmail.com  |     3 |
++----+-------+-----------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO student(id,name,email,class) VALUES
+    -> (3,'Mehedi','mehedi@gmail.com',1),
+    -> (4,'Nasrin','nasrin@gmail.com',4);
+Query OK, 2 rows affected (0.00 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM student;
++----+--------+------------------+-------+
+| id | name   | email            | class |
++----+--------+------------------+-------+
+|  1 | Shaon  | shaon@gmail.com  |     2 |
+|  2 | Ahad   | ahad@gmail.com   |     3 |
+|  3 | Mehedi | mehedi@gmail.com |     1 |
+|  4 | Nasrin | nasrin@gmail.com |     4 |
++----+--------+------------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE studentInfo(
+    ->  id INT PRIMARY KEY AUTO_INCREMENT,
+    ->  student_name VARCHAR(30),
+    -> session VARCHAR(10),
+    -> CGPA FLOAT(5,2),
+    -> gender VARCHAR(10),
+    -> mobile VARCHAR(15),
+    -> email VARCHAR(50),
+    -> dob DATE
+    -> );
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> SELECT * FROM studentInfo;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO studentInfo(1984,'Shaon','2022-2023',3.75,'Male',01611111111,'shaon@gmail.com',2004);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1984,'Shaon','2022-2023',3.75,'Male',01611111111,'shaon@gmail.com',2004)' at line 1
+mysql> INSERT INTO studentInfo (id, student_name, session, CGPA, gender, mobile, email, dob)
+    -> VALUES (1984, 'Shaon', '2022-2023', 3.75, 'Male', '01611111111', 'shaon@gmail.com', 2004);
+ERROR 1292 (22007): Incorrect date value: '2004' for column 'dob' at row 1
+mysql> INSERT INTO studentInfo (id, student_name, session, CGPA, gender, mobile, email, dob)
+    -> VALUES (1984, 'Shaon', '2022-2023', 3.75, 'Male', '01611111111', 'shaon@gmail.com', '2004-01-01');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM studentInfo;
++------+--------------+-----------+------+--------+-------------+-----------------+------------+
+| id   | student_name | session   | CGPA | gender | mobile      | email           | dob        |
++------+--------------+-----------+------+--------+-------------+-----------------+------------+
+| 1984 | Shaon        | 2022-2023 | 3.75 | Male   | 01611111111 | shaon@gmail.com | 2004-01-01 |
++------+--------------+-----------+------+--------+-------------+-----------------+------------+
+1 row in set (0.00 sec)
+
+mysql> Terminal close -- exit!
+mysql> tee C:/Users/IIT-LAB-01/Documents/ICT-2204 Database Management System/Day1.txt;
+mysql> USE iit14
+Database changed
+mysql> SHOW TABLES;
++-----------------+
+| Tables_in_iit14 |
++-----------------+
+| cust            |
+| student         |
+| studentinfo     |
++-----------------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO CUST(CUST_ID,CUST_NAME) VALUES
+    -> (1,'Shaon');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM CUST;
++---------+-----------+
+| CUST_ID | CUST_NAME |
++---------+-----------+
+|       1 | Shaon     |
++---------+-----------+
+1 row in set (0.00 sec)
+
+mysql> DROP TABLE CUST;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SELECT * FROM CUST;
+ERROR 1146 (42S02): Table 'iit14.cust' doesn't exist
+mysql> CREATE TABLE CUST (
+    ->  CUST_ID INT UNIQUE,
+    ->  CUST_NAME VARCHAR(10));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql>  INSERT INTO CUST(CUST_ID,CUST_NAME) VALUES
+    ->  (1,'Shaon');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  INSERT INTO CUST(CUST_ID,CUST_NAME) VALUES
+    -> (2,'Nasrin');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  INSERT INTO CUST(CUST_ID,CUST_NAME) VALUES
+    -> (1,'Shaon');
+ERROR 1062 (23000): Duplicate entry '1' for key 'cust.CUST_ID'
+mysql> SELECT * FROM CUST;
++---------+-----------+
+| CUST_ID | CUST_NAME |
++---------+-----------+
+|       1 | Shaon     |
+|       2 | Nasrin    |
++---------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE CUST (
+    ->     ->     CUST_ID INT NOT NULL,
+    ->     ->     CUST_NAME VARCHAR(10)
+    ->     -> UNIQUE(CUST_ID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '->     CUST_ID INT NOT NULL,
+    ->     CUST_NAME VARCHAR(10)
+    -> UNIQUE(CUST' at line 2
+mysql> CREATE TABLE CUST (
+    ->     CUST_ID INT NOT NULL,
+    ->     CUST_NAME VARCHAR(10),
+    ->     UNIQUE(CUST_ID)
+    -> );
+ERROR 1050 (42S01): Table 'cust' already exists
+mysql> DROP TABLE CUST;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE CUST (
+    ->     CUST_ID INT NOT NULL,
+    ->     CUST_NAME VARCHAR(10),
+    ->     UNIQUE(CUST_ID)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DROP TABLE CUST;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE CUST (
+    ->     CUST_ID INT NOT NULL,
+    ->     CUST_NAME VARCHAR(10),
+    ->     UNIQUE(CUST_ID)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> DROP TABLE CUST;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>  CREATE TABLE CUST (
+    ->     ->     CUST_ID INT NOT NULL,
+    ->     ->     CUST_NAME VARCHAR(10),
+    ->     ->     CONSTRAINT uc_cust_id UNIQUE(CUST_ID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '->     CUST_ID INT NOT NULL,
+    ->     CUST_NAME VARCHAR(10),
+    ->     CONSTR' at line 2
+mysql> CREATE TABLE CUST (
+    ->     CUST_ID INT NOT NULL,
+    ->     CUST_NAME VARCHAR(10),
+    ->     CONSTRAINT uc_cust_id UNIQUE (CUST_ID)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO CUST(CUST_ID,CUST_NAME) VALUES
+    -> (1,'Shaon');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CUST(CUST_ID,CUST_NAME) VALUES
+    -> (2,'Hello');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> CREATE TABLE test1(
+    -> id INT NOT NULL,
+    -> name VARCHAR(20),
+    -> gender VARCHAR(10),
+    -> email VARCHAR(30),
+    -> CONSTRAINT us_test1_email NOT NULL (email));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NOT NULL (email))' at line 6
+mysql> CREATE TABLE test1 (
+    ->     id INT NOT NULL,
+    ->     name VARCHAR(20),
+    ->     gender VARCHAR(10),
+    ->     email VARCHAR(30) NOT NULL,
+    ->     CONSTRAINT us_test1_email UNIQUE (email)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO test1 (id,name,gender,email) VALUES
+    -> (1,'Shaon','male','shaon@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO test1 (id,name,gender,email) VALUES
+    -> (2,'tuhin','female','tuhin@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  INSERT INTO test1 (id,name,gender,email) VALUES
+    -> (1,'Shaon','male','shaon@gmail.com');
+ERROR 1062 (23000): Duplicate entry 'shaon@gmail.com' for key 'test1.us_test1_email'
+mysql> INSERT INTO test1 (id,name,gender) VALUES
+    -> (3,'Nasrin','female');
+ERROR 1364 (HY000): Field 'email' doesn't have a default value
+mysql> CREATE TABLE test2 (
+    ->   id INT NOT NULL,
+    ->     name VARCHAR(20),
+    ->     gender VARCHAR(10),
+    ->     email VARCHAR(30) PRIMARY KEY
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE Employee(
+    -> id INT PRIMARY KEY,
+    -> fName VARCHAR(30),
+    -> lName VARCHAR(50),
+    -> email VARCHAR(50));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO Employee( id, fName,lName,email) VALUES
+    -> (1,'a','b',as@gmail.com'),
+    '> (2,'s','yy','as@gmail.com');
+    '> 
+    '> ^c
+    '> ;
+    '> ;
+    '> ^C
+mysql> INSERT INTO Employee (id,fName,lName,email) VALUES
+    -> (1,'Shaon','Khan','Shaon@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM Employee;
++----+-------+-------+-----------------+
+| id | fName | lName | email           |
++----+-------+-------+-----------------+
+|  1 | Shaon | Khan  | Shaon@gmail.com |
++----+-------+-------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> DROP Employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Employee' at line 1
+mysql> CREATE TABLE Employees (
+    ->     EmployeeID INT,
+    ->     FirstName VARCHAR(50),
+    ->     LastName VARCHAR(50),
+    ->     Email VARCHAR(100),
+    ->     CONSTRAINT PK_Employee PRIMARY KEY (EmployeeID)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DROP Employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Employee' at line 1
+mysql> DROP Employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Employees' at line 1
+mysql> DROP Employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Employees' at line 1
+mysql> CREATE TABLE studentInfo2(
+    -> id INT,
+    -> fName VARCHAR(20),
+    -> lName VARCHAR(20),
+    -> email VARCHAR(100),
+    -> CONSTRAINT emp PRIMARY KEY(id));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>  INSERT INTO Employee (id,fName,lName,email) VALUES
+    -> (1,'Shaon','Khan','Shaon@gmail.com');
+ERROR 1062 (23000): Duplicate entry '1' for key 'employee.PRIMARY'
+mysql>  INSERT INTO studentInfo2 (id,fName,lName,email) VALUES
+    -> (1,'Shaon','Khan','Shaon@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  INSERT INTO studentInfo2 (id,fName,lName,email) VALUES
+    -> (2,'Shaon','Khan','Shaon@gmail.com');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM studentInfo2;
++----+-------+-------+-----------------+
+| id | fName | lName | email           |
++----+-------+-------+-----------------+
+|  1 | Shaon | Khan  | Shaon@gmail.com |
+|  2 | Shaon | Khan  | Shaon@gmail.com |
++----+-------+-------+-----------------+
+2 rows in set (0.00 sec)
+
+mysql>  INSERT INTO studentInfo2 (id,fName,lName,email) VALUES
+    -> (2,'Shqqqqaon','Khandddd','Shddaddon@gmail.com');
+ERROR 1062 (23000): Duplicate entry '2' for key 'studentinfo2.PRIMARY'
+mysql>  CREATE TABLE studentInfo3(
+    -> id INT,
+    -> email VARCHAR(100),
+    -> PRIMARY KEY(id));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> notee
